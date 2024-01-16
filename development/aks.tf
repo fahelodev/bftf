@@ -26,7 +26,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
 
   automatic_channel_upgrade = "stable"
   private_cluster_enabled   = false
-  node_resource_group       = "${var.project_name}${var.environment}-aks"
+  node_resource_group       = "${var.project_name}${var.environment}-aks" #esto crea un resources group con todo lo de aks
 
 
   default_node_pool {
