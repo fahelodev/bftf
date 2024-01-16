@@ -2,15 +2,14 @@ resource "azurerm_resource_group" "barriofarma_rg" {
   name     = var.resource_group_name
   location = var.location
 }
-
 resource "azurerm_user_assigned_identity" "base" {
-  location            = azurerm_resource_group.barriofarma_rg.location
   name                = "base"
+  location            = azurerm_resource_group.barriofarma_rg.location
   resource_group_name = azurerm_resource_group.barriofarma_rg.name
 }
 
 resource "azurerm_role_assignment" "base" {
-  scope                = azurerm_kubernetes_cluster.aks.id
+  scope                = azurerm_resource_group.barriofarma_rg.id
   role_definition_name = "Network Contributor"
   principal_id         = azurerm_user_assigned_identity.base.principal_id
 }
@@ -24,6 +23,10 @@ resource "azurerm_kubernetes_cluster" "aks" {
   sku_tier                  = "Free"
   oidc_issuer_enabled       = true
   workload_identity_enabled = true
+
+  automatic_channel_upgrade = "stable"
+  private_cluster_enabled   = false
+  node_resource_group       = "${var.project_name}${var.environment}-aks"
 
 
   default_node_pool {
@@ -49,8 +52,8 @@ resource "azurerm_kubernetes_cluster" "aks" {
   network_profile {
     network_plugin     = "azure"
     network_policy     = "calico"
-    service_cidr       = "10.0.3.0/24"
-    dns_service_ip     = "10.0.3.10"    
+    service_cidr       = "10.0.64.0/19"
+    dns_service_ip     = "10.0.64.10"    
   }
 
   identity {
@@ -60,6 +63,10 @@ resource "azurerm_kubernetes_cluster" "aks" {
 
   tags ={
     env = var.environment
+  }
+
+   lifecycle {
+    ignore_changes = [default_node_pool[0].node_count]
   }
 
   depends_on = [
