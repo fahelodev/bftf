@@ -5,7 +5,7 @@ metadata:
   name: production
 spec:
   acme:
-    email: fahelo.dev@gmail.com
+    email: eduardo.araya@barriofarma.cl
     server: https://acme-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
       name: production-cluster-issuer

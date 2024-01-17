@@ -7,7 +7,7 @@ spec:
   acme:
     # Staging Environment: must be used for testing before using prod env
     # Letsencrypt has a strict rate limit.
-    email: fahelo.dev@gmail.com
+    email: eduardo.araya@barriofarma.cl
     server: https://acme-staging-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
       name: staging-cluster-issuer
