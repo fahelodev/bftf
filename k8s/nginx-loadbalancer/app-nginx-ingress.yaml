@@ -36,7 +36,7 @@ kind: Ingress
 metadata:
   name: echoserver-v2-secure
   annotations:
-    cert-manager.io/cluster-issuer: stagging
+    cert-manager.io/cluster-issuer: staging
 spec:
   ingressClassName: external-nginx
   rules:
