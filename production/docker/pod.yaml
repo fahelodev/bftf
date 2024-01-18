@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: prueba-acr-pull
+spec:
+  containers:
+  - name: mi-contenedor
+    image: barriofarmadevacr.azurecr.io/samples/hello-world:latest
