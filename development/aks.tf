@@ -21,6 +21,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   dns_prefix          = "${var.project_name}${var.environment}1"
   # For prod change to "Standard"
   sku_tier                  = "Free"
+  #variables para permitir conexiones oidc y workload identity
   oidc_issuer_enabled       = true
   workload_identity_enabled = true
 
